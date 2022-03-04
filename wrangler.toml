@@ -1,0 +1,19 @@
+name = "cottage-rental-calendar"
+type = "webpack"
+webpack_config = "webpack.config.js"
+route = ''
+zone_id = ''
+usage_model = ''
+compatibility_flags = []
+workers_dev = true
+compatibility_date = "2022-03-02"
+
+[vars]
+DRIFTWOOD_BAY_CALENDAR_ID = "c_ottn91vtos9nqfuujh9d3bn8bo@group.calendar.google.com"
+MACKERS_PLACE_CALENDAR_ID = "c_d1jtfq52rrnusp3fqh187m5i74@group.calendar.google.com"
+CALENDAR_CACHE_LENGTH = 300 
+
+[[kv_namespaces]]
+binding = "SETTINGS"
+id = "2273375916f5434882c25052dd2de9b6"
+preview_id = "5c3d8ff7eeee44dbaaf3bbcbbc2752f5"
