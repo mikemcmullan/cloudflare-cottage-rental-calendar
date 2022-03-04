@@ -1,8 +1,6 @@
 # Cottage Rental Google Calendar Cloudflare Worker 
 A simple script that fetches calendar events from the google calendar api, processes them, and returns the start and end dates for each event.
 
-The calendar id values are stored in the wrangler.tml file.
-
 ## Required Wramgler Secrets
 I used the [Google oAuth Playground](https://developers.google.com/oauthplayground) to generate the refresh token. Use the google cloud console to create a new oAuth application to get a `CLIENT_ID` and `CLIENT_SECRET`.
 
