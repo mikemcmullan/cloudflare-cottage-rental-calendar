@@ -21,7 +21,6 @@ function mapResponse(resp) {
         return {
             start,
             end,
-            summary: item.summary
         }
 
     })
