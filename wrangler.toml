@@ -1,12 +1,7 @@
 name = "cottage-rental-calendar"
-type = "webpack"
-webpack_config = "webpack.config.js"
-route = ''
-zone_id = ''
-usage_model = ''
 compatibility_flags = []
 workers_dev = true
-compatibility_date = "2022-03-02"
+compatibility_date = "2025-01-03"
 
 [vars]
 DRIFTWOOD_BAY_CALENDAR_ID = "c_ottn91vtos9nqfuujh9d3bn8bo@group.calendar.google.com"

@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "wrangler": "^0.0.17"
+    "wrangler": "^3"
   },
   "dependencies": {
     "date-fns": "^2.28.0",
