@@ -1,5 +1,5 @@
 
-import { getAccessTokenFromRefreshToken } from './lib/GoogleAuth'
+import { getAccessTokenFromServiceAccount } from './lib/GoogleAuth'
 import { getCalendarEvents } from './lib/GoogleCalendarApi'
 import { corsHeaders } from './lib/CorsHeaders'
 import { Router } from 'itty-router'
@@ -36,7 +36,7 @@ async function getCachedCalendarEvents(calendarId, year) {
 
     console.log(`Cache Miss ${calendarId}`)
 
-    const events = await getCalendarEvents(calendarId, year)
+    const events = await getCalendarEvents(calendarId, year)    
 
     if (events.body.error) {
         return { status: events.status, events: events.body }
@@ -107,5 +107,5 @@ addEventListener('fetch', event => {
 })
 
 addEventListener('scheduled', async (event) => {
-    event.waitUntil(getAccessTokenFromRefreshToken(REFRESH_TOKEN, true))
+    event.waitUntil(getAccessTokenFromServiceAccount(GOOGLE_SERVICE_ACCOUNT_JSON, true))
 })

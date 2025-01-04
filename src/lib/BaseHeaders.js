@@ -1,7 +1,7 @@
-import { getAccessTokenFromRefreshToken } from './GoogleAuth'
+import { getAccessTokenFromServiceAccount } from './GoogleAuth'
 
 export async function baseHeaders() {
-    const token = await getAccessTokenFromRefreshToken(REFRESH_TOKEN)
+    const token = await getAccessTokenFromServiceAccount(GOOGLE_SERVICE_ACCOUNT_JSON)
 
     return {
         'Content-Type': 'application/json',
