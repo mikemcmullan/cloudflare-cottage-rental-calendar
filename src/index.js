@@ -36,10 +36,12 @@ async function getCachedCalendarEvents(calendarId, year) {
 
     console.log(`Cache Miss ${calendarId}`)
 
-    const events = await getCalendarEvents(calendarId, year)    
+    const events = await getCalendarEvents(calendarId, year)  
 
     if (events.body.error) {
-        return { status: events.status, events: events.body }
+        console.error(events.body);
+        
+        throw new Error(events.body)
     }
 
     const value = JSON.stringify({ data: mapResponse(events.body) })
@@ -49,6 +51,29 @@ async function getCachedCalendarEvents(calendarId, year) {
     })
 
     return { status: 200, events: value }
+}
+
+async function getCalendarEventsHttp(calendarId, year) {
+    var status, events;
+
+    try {
+        const out = await getCachedCalendarEvents(calendarId, year)
+
+        status = out.status
+        events = out.events   
+        
+    } catch(e) {
+        status = 500
+        events = JSON.stringify({ error: true })
+    }
+
+    return new Response(events, {
+        status,
+        headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders()
+        }
+    })
 }
 
 function getValidYears() {
@@ -76,28 +101,14 @@ router.get('/favicon.ico', async (request, event) => {
 
 router.get('/driftwood-bay/:year?', async (request, event) => {
     const year = parseYear(request.params.year)
-    const { status, events } = await getCachedCalendarEvents(DRIFTWOOD_BAY_CALENDAR_ID, year)
 
-    return new Response(events, {
-        status,
-        headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders()
-        }
-    })
+    return await getCalendarEventsHttp(DRIFTWOOD_BAY_CALENDAR_ID, year);
 })
 
 router.get('/mackers-place/:year?', async (request, event) => {
     const year = parseYear(request.params.year)
-    const { status, events } = await getCachedCalendarEvents(MACKERS_PLACE_CALENDAR_ID, year)
 
-    return new Response(events, {
-        status,
-        headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders()
-        }
-    })
+    return await getCalendarEventsHttp(MACKERS_PLACE_CALENDAR_ID, year);
 })
 
 router.all('*', () => new Response('Not Found.', { status: 404 }))
